@@ -30,13 +30,15 @@ A user lands on the app, browses upcoming events, selects seats from an interact
 
 | Feature | Details |
 |---|---|
-| 🔐 **Auth** | JWT-based login with role-based access (Attendee, Organizer, Admin) |
+| 🔐 **Auth** | JWT-based login with role-based access |
 | 🎪 **Events** | Browse, create, publish, and cancel events |
 | 💺 **Seat Map** | Interactive grid — Available (green), Locked (yellow), Booked (red) |
 | 🎫 **Tickets** | Multi-tier pricing — VIP, General, Early Bird |
 | 💳 **Payments** | Strategy Pattern — Credit Card, PayPal, Bank Transfer |
 | 🔔 **Notifications** | Observer Pattern — Email, SMS, Push |
 | 📋 **My Bookings** | View complete booking history with live statuses |
+
+> **🎓 Note on UI Scope:** The backend and database are fully architected and secured for all three roles (`Attendee`, `Organizer`, `Admin`). However, the frontend demo strictly focuses on the **Attendee** flow. This was a deliberate choice to visually demonstrate the most complex transaction pipelines (seat state management, factory pattern tickets, and strategy pattern payments) for presentation purposes.
 
 ---
 
@@ -184,6 +186,16 @@ interface NotificationObserver {
 class EmailNotification implements NotificationObserver { ... }
 class SMSNotification   implements NotificationObserver { ... }
 ```
+
+---
+
+## 🌍 Deployment
+
+The application is fully configured for production deployment using modern cloud platforms:
+
+- **Frontend:** [Vercel](https://vercel.com) (React + Vite)
+- **Backend:** [Render](https://render.com) (Node.js + Express)
+- **Database:** [Supabase](https://supabase.com) (PostgreSQL)
 
 ---
 
