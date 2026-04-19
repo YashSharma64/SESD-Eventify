@@ -1,10 +1,9 @@
-# Eventify - Smart Event & Venue Booking Platform
+# Eventify - Event Booking System (SESD Project)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0%2B-blue.svg)](https://www.typescriptlang.org/)
 
-> **A full-stack event booking system demonstrating OOP principles, design patterns, and clean architecture for SESD Project.**
+> **A prototype event booking system demonstrating OOP principles, design patterns, and clean architecture.**
 
 ---
 
@@ -26,19 +25,18 @@
 
 ## Overview
 
-**Eventify** is an event booking platform designed to demonstrate software engineering best practices, OOP principles, and clean architecture patterns. The system implements a complete backend with proper layering, design patterns, and database design.
+**Eventify** is a prototype event booking system built to demonstrate software engineering concepts for the SESD course. The focus is on clean backend code, OOP principles, and design patterns.
 
-### Project Focus
+### What This Project Demonstrates
 
-This project emphasizes:
-- **Backend Architecture (75%)**: Clean code structure with controllers/services/repositories
+- **Backend Architecture (75%)**: Clean layered structure with controllers/services/models
 - **OOP Principles**: Inheritance, encapsulation, abstraction, and polymorphism
 - **Design Patterns**: Strategy, Factory, Singleton, Observer, and State patterns
-- **Database Design**: Proper normalization, indexing, and relationships
+- **Database Design**: Proper normalization and relationships
 
 ### Problem Statement
 
-Event organizers struggle with managing venue bookings, seat availability, and payments efficiently. Eventify provides a unified platform that handles event creation, seat management, and booking workflows.
+Event organizers need a system to manage venue bookings, seat availability, and payments. This prototype shows how to structure such a system using best practices.
 
 ---
 
@@ -72,27 +70,22 @@ Event organizers struggle with managing venue bookings, seat availability, and p
 
 ## Architecture
 
-Eventify follows **Clean Architecture** with clear separation of concerns:
+Simple layered architecture:
 
 ```
-Backend (Node.js/Express)
-    |
-    |-- Controllers/     (Request Handling)
-    |-- Services/        (Business Logic)
-    |-- Repositories/    (Data Access)
-    |-- Models/          (Domain Entities)
-    |-- Middlewares/     (Auth, Validation, Logging)
-    |-- Utils/           (Helpers, Validators)
-    |-- Config/          (Environment, Database)
+Controllers → Services → Models → Database
+     ↓
+  Routes → Middleware (Auth)
+     ↓
+  Design Patterns (in /patterns folder)
 ```
 
-### Architectural Principles
+### Key Principles
 
-1. **Layered Architecture**: Controllers → Services → Repositories → Database
-2. **Dependency Injection**: Loose coupling between components
-3. **Repository Pattern**: Abstracts data access layer
-4. **DTO Pattern**: Clean API contracts
-5. **Middleware Pipeline**: Authentication, validation, logging
+1. **Layered Architecture**: Controllers → Services → Models → Database
+2. **Separation of Concerns**: Each layer has single responsibility
+3. **Design Patterns**: Applied where they naturally fit
+4. **Clean Code**: Readable, maintainable, well-documented
 
 ---
 
@@ -128,38 +121,31 @@ Backend (Node.js/Express)
 ```
 SESD-Eventify/
 |
-|-- backend/
-|   |-- src/
-|   |   |-- controllers/    # Request handlers
-|   |   |-- services/       # Business logic
-|   |   |-- repositories/   # Data access
-|   |   |-- models/         # Domain entities
-|   |   |-- middlewares/    # Auth, validation
-|   |   |-- routes/        # API routes
-|   |   |-- factories/      # Factory pattern
-|   |   |-- strategies/     # Strategy pattern
-|   |   |-- observers/      # Observer pattern
-|   |   |-- states/         # State pattern
-|   |   |-- singleton/      # Singleton pattern
-|   |   |-- utils/          # Helper functions
-|   |   |-- config/         # Configuration
-|   |   |-- types/          # TypeScript types
-|   |-- tests/              # Test files
-|   |-- package.json
+|-- src/
+|   |-- controllers/       # Request handlers
+|   |-- services/          # Business logic
+|   |-- models/            # Domain entities (User, Event, Booking, etc.)
+|   |-- patterns/          # Design patterns implementations
+|   |   |-- strategy/      # Payment strategies
+|   |   |-- factory/       # Ticket factory
+|   |   |-- observer/      # Notification observers
+|   |   |-- state/         # Seat states
+|   |   |-- singleton/     # Logger singleton
+|   |-- routes/            # API routes
+|   |-- middleware/        # Auth middleware
+|   |-- config/           # Database config
+|   |-- app.ts             # Express app setup
+|   |-- server.ts          # Entry point
 |
-|-- frontend/
-|   |-- src/
-|   |   |-- components/     # React components
-|   |   |-- pages/          # Page components
-|   |   |-- services/       # API calls
-|   |-- package.json
+|-- package.json
+|-- tsconfig.json
 |
-|-- idea.md                 # Project idea
-|-- useCaseDiagram.md       # Use case diagram
-|-- sequenceDiagram.md      # Sequence diagram
-|-- classDiagram.md         # Class diagram
-|-- ErDiagram.md            # ER diagram
-|-- README.md               # This file
+|-- idea.md                # Project idea
+|-- useCaseDiagram.md      # Use case diagram
+|-- sequenceDiagram.md     # Sequence diagram
+|-- classDiagram.md        # Class diagram
+|-- ErDiagram.md           # ER diagram
+|-- README.md              # This file
 ```
 
 ---
@@ -179,18 +165,18 @@ SESD-Eventify/
 git clone https://github.com/YashSharma64/SESD-Eventify.git
 cd SESD-Eventify
 
-# Backend setup
-cd backend
+# Install dependencies
 npm install
-cp .env.example .env
-# Configure database in .env
-npm run dev
 
-# Frontend setup (in new terminal)
-cd ../frontend
-npm install
-npm start
+# Setup environment
+cp .env.example .env
+# Edit .env with your database credentials
+
+# Run the server
+npm run dev
 ```
+
+Server will run on http://localhost:5000
 
 ---
 
@@ -355,9 +341,7 @@ See [ErDiagram.md](./ErDiagram.md) for complete schema.
 ## Testing
 
 ```bash
-cd backend
 npm test                 # Run all tests
-npm run test:coverage    # Coverage report
 ```
 
 ---
