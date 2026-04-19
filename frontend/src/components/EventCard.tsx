@@ -45,7 +45,7 @@ const EventCard = ({ event, onClick }: EventProps) => {
             <Ticket size={16} />
             <span>${event.price}</span>
           </div>
-          <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium border border-white/10 group-hover:bg-gradient-to-r group-hover:from-accent-blue group-hover:to-accent-purple group-hover:border-transparent">
+          <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium border border-white/10 group-hover:bg-gradient-to-r group-hover:from-accent-blue group-hover:to-accent-purple group-hover:border-transparent cursor-pointer">
             Book Now
           </button>
         </div>
