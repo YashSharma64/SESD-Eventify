@@ -1,4 +1,4 @@
-import { MapPin, Calendar, Clock, Ticket } from 'lucide-react';
+import { MapPin, Calendar } from 'lucide-react';
 
 interface BookingSummaryProps {
   event: any;

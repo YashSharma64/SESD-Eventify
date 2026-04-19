@@ -11,7 +11,7 @@ const BookingDashboard = () => {
   const navigate = useNavigate();
   const { event, selectedSeats, ticketType, totalPrice } = location.state || {};
   const [bookingStatus, setBookingStatus] = useState<'pending' | 'confirmed'>('pending');
-  const [bookingId, setBookingId] = useState<string | null>(null);
+  const [, setBookingId] = useState<string | null>(null);
 
   const handleConfirmPayment = async (method: string) => {
     try {
