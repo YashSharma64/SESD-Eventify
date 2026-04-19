@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { CreditCard, Landmark, Wallet } from 'lucide-react';
 
 interface PaymentSelectorProps {
-  onConfirm: () => void;
+  onConfirm: (method: string) => void;
   totalPrice: number;
 }
 
@@ -18,10 +18,10 @@ const PaymentSelector = ({ onConfirm, totalPrice }: PaymentSelectorProps) => {
 
   const handlePay = () => {
     setIsProcessing(true);
-    // Simulate backend payment strategy invocation
+    // Simulate backend payment strategy invocation delay
     setTimeout(() => {
       setIsProcessing(false);
-      onConfirm();
+      onConfirm(selectedMethod);
     }, 1500);
   };
 

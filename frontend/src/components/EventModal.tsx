@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { X, MapPin, Calendar, CreditCard } from 'lucide-react';
 import SeatMap from './SeatMap';
+import api from '../api';
 
 interface EventModalProps {
   event: any;
@@ -27,11 +28,34 @@ const EventModal = ({ event, onClose }: EventModalProps) => {
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    setSeats(generateMockSeats());
+    
+    // Fetch real venue seats
+    const fetchSeats = async () => {
+      try {
+        // We assume event.venueId exists from backend mapping, or we just try 1
+        const venueId = event.venueId || 1; 
+        const { data } = await api.get(`/events/venues/${venueId}/seats`);
+        if (data && data.seats && data.seats.length > 0) {
+          const mappedSeats = data.seats.map((s: any) => ({
+            id: s.id,
+            seatNumber: s.seatNumber,
+            status: s.status === 'available' ? 'available' : s.status === 'locked' ? 'locked' : 'booked'
+          }));
+          setSeats(mappedSeats);
+        } else {
+          setSeats(generateMockSeats());
+        }
+      } catch (err) {
+        setSeats(generateMockSeats());
+      }
+    };
+    
+    fetchSeats();
+
     return () => {
       document.body.style.overflow = 'auto';
     };
-  }, []);
+  }, [event]);
 
   const handleToggleSeat = (seatId: string) => {
     setSelectedSeats(prev => 
