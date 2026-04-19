@@ -1,21 +1,28 @@
-function Navbar() {
+import { Link } from 'react-router-dom';
+import { Calendar, User } from 'lucide-react';
+
+const Navbar = () => {
   return (
-    <nav className="bg-[#1a1a1a] border-b border-[#2a2a2a] px-6 py-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg"></div>
-          <span className="text-2xl font-bold text-white">Eventify</span>
-        </div>
-        
+    <nav className="sticky top-0 z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2 text-xl font-bold font-nunito tracking-wide">
+          <Calendar className="text-accent-blue" />
+          <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">
+            Eventify
+          </span>
+        </Link>
         <div className="flex items-center gap-4">
-          <span className="text-gray-400">Role: <span className="text-blue-400 font-semibold">Attendee</span></span>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition">
-            Login
-          </button>
+          <Link to="/dashboard" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">
+            Dashboard
+          </Link>
+          <div className="flex items-center gap-2 bg-dark-card px-3 py-1.5 rounded-full border border-dark-border">
+            <User size={16} className="text-gray-400" />
+            <span className="text-xs text-gray-300">Attendee</span>
+          </div>
         </div>
       </div>
     </nav>
   );
-}
+};
 
 export default Navbar;

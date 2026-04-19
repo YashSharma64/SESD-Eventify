@@ -1,55 +1,57 @@
-interface EventCardProps {
-  event: any;
-  onBookClick: (event: any) => void;
+import { Calendar, MapPin, Ticket } from 'lucide-react';
+
+interface EventProps {
+  event: {
+    id: number;
+    title: string;
+    date: string;
+    venue: string;
+    price: number;
+    image: string;
+  };
+  onClick: () => void;
 }
 
-function EventCard({ event, onBookClick }: EventCardProps) {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
-
+const EventCard = ({ event, onClick }: EventProps) => {
   return (
-    <div className="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#2a2a2a] hover:border-blue-500 transition">
-      <div className="h-40 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-        <span className="text-white text-6xl">{'</>'}</span>
+    <div 
+      onClick={onClick}
+      className="bg-dark-card rounded-xl overflow-hidden border border-dark-border shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-accent-blue/10 hover:border-dark-border/80 cursor-pointer group flex flex-col"
+    >
+      <div className="h-48 overflow-hidden relative">
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-card to-transparent z-10" />
+        <img 
+          src={event.image || "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80"} 
+          alt={event.title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
       </div>
-      
-      <div className="p-5">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="bg-blue-500/20 text-blue-400 px-2 py-1 rounded text-xs uppercase">
-            {event.category}
-          </span>
+      <div className="p-5 flex-1 flex flex-col justify-between relative z-20 -mt-8">
+        <div>
+          <h3 className="text-lg font-bold font-nunito mb-2 text-white">{event.title}</h3>
+          <div className="space-y-2 text-sm text-gray-400">
+            <div className="flex items-center gap-2">
+              <Calendar size={14} className="text-accent-blue" />
+              <span>{event.date}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin size={14} className="text-accent-purple" />
+              <span>{event.venue}</span>
+            </div>
+          </div>
         </div>
-        
-        <h3 className="text-xl font-bold text-white mb-2">{event.title}</h3>
-        <p className="text-gray-400 text-sm mb-3">{event.description}</p>
-        
-        <div className="flex items-center gap-2 text-gray-400 text-sm mb-4">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          <span>{formatDate(event.startTime)}</span>
-        </div>
-        
-        <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-white">${event.basePrice}</span>
-          <button
-            onClick={() => onBookClick(event)}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold transition"
-          >
-            Book
+        <div className="mt-6 flex items-center justify-between">
+          <div className="flex items-center gap-1 font-semibold text-white">
+            <Ticket size={16} />
+            <span>${event.price}</span>
+          </div>
+          <button className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm font-medium border border-white/10 group-hover:bg-gradient-to-r group-hover:from-accent-blue group-hover:to-accent-purple group-hover:border-transparent">
+            Book Now
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default EventCard;
