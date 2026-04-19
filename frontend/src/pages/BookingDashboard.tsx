@@ -12,6 +12,7 @@ const BookingDashboard = () => {
   const { event, selectedSeats, ticketType, totalPrice } = location.state || {};
   const [bookingStatus, setBookingStatus] = useState<'pending' | 'confirmed'>('pending');
   const [, setBookingId] = useState<string | null>(null);
+  const [recentlyAdded, setRecentlyAdded] = useState<any>(null);
 
   const handleConfirmPayment = async (method: string) => {
     try {
@@ -38,9 +39,21 @@ const BookingDashboard = () => {
         });
       }
       setBookingStatus('confirmed');
+      setRecentlyAdded({
+        id: newBookingId ? `BKN-${newBookingId.toString().slice(-4)}` : `BKN-${Math.floor(Math.random() * 9000) + 1000}`,
+        title: event.title || 'Event Booking',
+        date: event.date || new Date().toLocaleDateString(),
+        status: 'Confirmed'
+      });
     } catch (e) {
       console.warn("Backend payment failed or offline. Simulating success.", e);
       setBookingStatus('confirmed');
+      setRecentlyAdded({
+        id: `BKN-${Math.floor(Math.random() * 9000) + 1000}`,
+        title: event.title || 'Event Booking',
+        date: event.date || new Date().toLocaleDateString(),
+        status: 'Confirmed'
+      });
     }
   };
 
@@ -103,9 +116,8 @@ const BookingDashboard = () => {
           )}
         </div>
 
-        {/* Right Column: History */}
         <div className="lg:col-span-1 border-l border-dark-border pl-0 lg:pl-8">
-          <BookingList />
+          <BookingList newBooking={recentlyAdded} />
         </div>
       </div>
     </div>

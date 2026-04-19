@@ -7,8 +7,17 @@ const MOCK_HISTORY = [
   { id: 'BKN-4472', title: 'StartUp Grind Meetup', date: 'Sep 02, 2026', status: 'Completed' },
 ];
 
-const BookingList = () => {
+const BookingList = ({ newBooking }: { newBooking?: any }) => {
   const [history, setHistory] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (newBooking) {
+      setHistory(prev => {
+        if (prev.some(b => b.id === newBooking.id)) return prev;
+        return [newBooking, ...prev];
+      });
+    }
+  }, [newBooking]);
 
   useEffect(() => {
     const fetchHistory = async () => {
