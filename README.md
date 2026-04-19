@@ -121,24 +121,32 @@ Controllers → Services → Models → Database
 ```
 SESD-Eventify/
 |
-|-- src/
-|   |-- controllers/       # Request handlers
-|   |-- services/          # Business logic
-|   |-- models/            # Domain entities (User, Event, Booking, etc.)
-|   |-- patterns/          # Design patterns implementations
-|   |   |-- strategy/      # Payment strategies
-|   |   |-- factory/       # Ticket factory
-|   |   |-- observer/      # Notification observers
-|   |   |-- state/         # Seat states
-|   |   |-- singleton/     # Logger singleton
-|   |-- routes/            # API routes
-|   |-- middleware/        # Auth middleware
-|   |-- config/           # Database config
-|   |-- app.ts             # Express app setup
-|   |-- server.ts          # Entry point
+|-- backend/
+|   |-- src/
+|   |   |-- controllers/       # Request handlers
+|   |   |-- services/          # Business logic
+|   |   |-- models/            # Domain entities (User, Event, Booking, etc.)
+|   |   |-- patterns/          # Design patterns implementations
+|   |   |   |-- strategy/      # Payment strategies
+|   |   |   |-- factory/       # Ticket factory
+|   |   |   |-- observer/      # Notification observers
+|   |   |   |-- state/         # Seat states
+|   |   |   |-- singleton/     # Logger singleton
+|   |   |-- routes/            # API routes
+|   |   |-- middleware/        # Auth middleware
+|   |   |-- config/           # Database config
+|   |   |-- app.ts             # Express app setup
+|   |   |-- server.ts          # Entry point
+|   |-- package.json
+|   |-- tsconfig.json
+|   |-- .env.example
 |
-|-- package.json
-|-- tsconfig.json
+|-- frontend/
+|   |-- src/
+|   |   |-- components/     # React components
+|   |   |-- pages/          # Page components
+|   |   |-- services/       # API calls
+|   |-- package.json
 |
 |-- idea.md                # Project idea
 |-- useCaseDiagram.md      # Use case diagram
@@ -165,18 +173,21 @@ SESD-Eventify/
 git clone https://github.com/YashSharma64/SESD-Eventify.git
 cd SESD-Eventify
 
-# Install dependencies
+# Backend setup
+cd backend
 npm install
-
-# Setup environment
 cp .env.example .env
 # Edit .env with your database credentials
-
-# Run the server
 npm run dev
+
+# Frontend setup (in new terminal)
+cd ../frontend
+npm install
+npm start
 ```
 
-Server will run on http://localhost:5000
+- Backend: http://localhost:5000
+- Frontend: http://localhost:3000
 
 ---
 
@@ -341,7 +352,13 @@ See [ErDiagram.md](./ErDiagram.md) for complete schema.
 ## Testing
 
 ```bash
-npm test                 # Run all tests
+# Backend tests
+cd backend
+npm test
+
+# Frontend tests
+cd frontend
+npm test
 ```
 
 ---
